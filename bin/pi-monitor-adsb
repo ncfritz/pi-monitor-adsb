@@ -1,0 +1,21 @@
+#!/bin/bash
+
+PI_MONITOR_DIR=/usr/local/pi-monitor/lib
+if [ ! -d "$PI_MONITOR_DIR" ]
+then
+    echo "pi-monitor is not installed!" 1>&2
+    exit 1
+fi
+
+export PYTHONPATH=$PYTHONPATH:$PI_MONITOR_DIR
+
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+    DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+
+DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+
+`which python` $DIR/../lib/adsb-monitor.py $@

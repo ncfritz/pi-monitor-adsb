@@ -1,0 +1,16 @@
+# pi-monitor-adsb service for systemd
+
+[Unit]
+Description=Raspberry PI Monitor (OLED) with ADS-B extension
+Wants=network.target
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/pi-monitor-adsb
+Type=simple
+Restart=on-failure
+RestartSec=30
+Nice=-5
+
+[Install]
+WantedBy=default.target
